@@ -60,6 +60,13 @@ func (m *m3uer) ToText() string {
 	sort.Strings(m.Groups)
 	textContent := strings.Builder{}
 	tvlist := m.ToTvMap()
+	if len(m.Groups) == 0 {
+		title := fmt.Sprintf("%s,#genre#\n", "未分类")
+		textContent.WriteString(title)
+		for _, tv := range tvlist {
+			textContent.WriteString(fmt.Sprintf("%s,%s\n", tv.Name, tv.Urls))
+		}
+	}
 	for _, g := range m.Groups {
 		title := fmt.Sprintf("%s,#genre#\n", g)
 		textContent.WriteString(title)
